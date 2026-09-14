@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NightSky Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        .main-logo 
+        {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 12px;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background:
+                    radial-gradient(circle at 50% 35%,
+                    rgba(154, 62, 255, 0.35),
+                    transparent 30%),
+
+                    radial-gradient(circle at 20% 70%,
+                    rgba(98, 40, 180, 0.25),
+                    transparent 35%),
+
+                    linear-gradient(
+                            180deg,
+                            #06050d,
+                            #10091b 50%,
+                            #030305
+                    );
+
+            color: white;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            background-image:
+                    radial-gradient(white 1px, transparent 1px);
+
+            background-size: 70px 70px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .login-container {
+            position: relative;
+
+            width: 500px;
+            min-height: 600px;
+            padding: 15px 45px 40px;
+
+            background: rgba(25, 24, 32, 0.93);
+
+            border: 1px solid rgba(174, 86, 255, 0.45);
+
+            border-radius: 18px;
+
+            box-shadow:
+                    0 0 40px rgba(174, 55, 255, 0.80),
+                    0 0 100px rgba(132, 35, 255, 0.65),
+                    0 0 160px rgba(111, 25, 255, 0.45);
+            
+            backdrop-filter: blur(12px);
+
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            color: #c371ff;
+
+            text-shadow:
+                    0 0 15px rgba(191, 97, 255, 0.55);
+
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #f2f2f2;
+            font-size: 17px;
+            margin-bottom: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            width: 100%;
+            height: 44px;
+
+            border-radius: 22px;
+
+            border: 1px solid #686470;
+
+            background: #26252e;
+
+            color: white;
+
+            padding: 0 18px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .input-group input::placeholder {
+            color: #aaa6b2;
+        }
+
+        .input-group input:focus {
+            border-color: #a844ff;
+
+            box-shadow:
+                    0 0 12px rgba(164, 68, 255, 0.65);
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin: 5px 3px 18px;
+
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .remember input {
+            accent-color: #a33cff;
+            cursor: pointer;
+        }
+
+        .forgot {
+            color: #b77cff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .forgot:hover {
+            color: #d1a4ff;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 45px;
+
+            border: none;
+
+            border-radius: 24px;
+
+            background: linear-gradient(
+                    90deg,
+                    #7c2cff,
+                    #bd3eff
+            );
+
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                    0 0 18px rgba(165, 55, 255, 0.45);
+
+            transition: 0.25s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                    0 0 25px rgba(170, 68, 255, 0.75);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin: 25px 0 20px;
+
+            color: #bbb;
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+
+            background: #55515d;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 13px;
+            margin-top: 28px;
+        }
+        .signup-section {
+            margin-top: 28px;
+            text-align: center;
+            font-size: 15px;
+            color: #d4d0da;
+        }
+
+        .signup-section p {
+            margin-bottom: 8px;
+        }
+
+        .signup-section a {
+            color: #c371ff;
+            font-size: 17px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .signup-section a:hover {
+            text-shadow: 0 0 10px rgba(195, 113, 255, 0.8);
+        }
+
+        .social-btn {
+            flex: 1;
+            font-size: 17px;
+            height: 55px;
+
+            border-radius: 22px;
+
+            border: 1px solid #6a4b83;
+
+            background: #17161d;
+
+            color: white;
+
+            cursor: pointer;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            gap: 9px;
+
+            transition: 0.25s;
+        }
+
+        .social-btn:hover {
+            border-color: #b348ff;
+
+            box-shadow:
+                    0 0 12px rgba(162, 66, 255, 0.4);
+        }
+
+        .social-icon {
+            width: 22px;
+            height: 22px;
+
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: white;
+
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 18px;
+
+            font-size: 11px;
+
+            color: #797680;
+        }
+
+        @media (max-width: 450px) {
+            .login-container {
+                width: 90%;
+                padding: 32px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+    <img src="logo.png" class="main-logo" alt="Logo">
+    
+    <div class="logo">
+        NIGHTSKY
+    </div>
+
+    <div class="subtitle">
+        Computer Lab Management System
+    </div>
+
+    <form id="loginForm">
+
+        <div class="input-group">
+            <input
+                    type="text"
+                    id="username"
+                    placeholder="אימייל או שם משתמש"
+                    required>
+        </div>
+
+        <div class="input-group">
+            <input
+                    type="password"
+                    id="password"
+                    placeholder="סיסמה"
+                    required>
+        </div>
+
+        <div class="options">
+
+            <label class="remember">
+                <input type="checkbox">
+                זכור אותי
+            </label>
+
+            <span class="forgot">
+                שכחת סיסמה?
+            </span>
+
+        </div>
+
+        <button
+                class="login-btn"
+                type="submit">
+            להתחבר
+        </button>
+
+    </form>
+
+    <div class="divider">
+        או התחבר באמצעות
+    </div>
+
+    <div class="social-buttons">
+
+        <button class="social-btn">
+            <span class="social-icon">G</span>
+            Google
+        </button>
+
+        <button class="social-btn">
+            <span class="social-icon">f</span>
+            Facebook
+        </button>
+
+    </div>
+    <div class="signup-section">
+        <p>אין לך עדיין חשבון?</p>
+        <a href="register.html">הירשם עכשיו</a>
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 NIGHTSKY
+</div>
+
+<script>
+
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById("username").value;
+
+        const password =
+            document.getElementById("password").value;
+
+        fetch("http://127.0.0.1:8080/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:
+                "username=" + encodeURIComponent(username) +
+                "&password=" + encodeURIComponent(password)
+        })
+            .then(response => response.text())
+            .then(result => {
+                console.log("Server response:", result);
+
+                if (result === "LOGIN_OK") {
+                    alert("התחברת בהצלחה!");
+                } else if (result === "LOGIN_FAILED") {
+                    alert("שם המשתמש או הסיסמה שגויים");
+                } else if (result === "SERVER_ERROR") {
+                    alert("שגיאה בחיבור לשרת");
+                } else {
+                    alert("שגיאה לא צפויה");
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert("לא ניתן להתחבר ללקוח");
+            });
+
+    });
+
+</script>
+
+</body>
+</html>
